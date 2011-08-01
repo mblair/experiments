@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# atget - download trailers from Apple website
+# http://ubuntuforums.org/showthread.php?t=1302668
+
+# Usage if no parameters given
+if [ -z $@ ]; then
+echo "atget <apple-trailer-url>"; exit
+fi
+
+# Prepend 'h' before resolution to create a valid url
+newurl=$(echo $@ | sed 's/_\([0-9]*[0-9][0-9][0-9]\)p.mov/_h\1p.mov/g')
+
+# Download trailer and save to the desktop
+wget -U QuickTime/7.6.2 "$newurl" -O $HOME/Desktop/${@##*/}
+
+echo $newurl
